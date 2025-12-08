@@ -1,0 +1,7 @@
+<!-- Save this as favicon.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <rect width="64" height="64" fill="#0f172a" rx="12" />
+  <text x="50%" y="50%" text-anchor="middle" fill="#ffffff" font-size="28" dy=".35em" font-family="Arial, sans-serif" font-weight="bold">
+    AH
+  </text>
+</svg>
