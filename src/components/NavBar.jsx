@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 
 export default function NavBar() {
@@ -11,107 +13,112 @@ export default function NavBar() {
     );
   });
 
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const toggleTheme = () => {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
   };
 
-  // Dynamic background classes based on theme
-  const navbarBg =
-    theme === "light"
-      ? "bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 text-white"
-      : "bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 text-gray-200";
+  const navItems = [
+    { name: "Home", href: "/" },
+    { name: "About", href: "#about" },
+    { name: "Projects", href: "#projects" },
+    { name: "Experience", href: "#experience" },
+    { name: "Contact", href: "#contact" },
+  ];
 
   return (
-    <div
-      className={`navbar sticky top-0 z-50 px-6 ${navbarBg} bg-opacity-95 backdrop-blur-xl shadow-2xl transition-all duration-500`}
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? "glass shadow-lg" : "bg-transparent"
+      }`}
     >
-      {/* Navbar Start (Menus) */}
-      <div className="navbar-start">
-        {/* Mobile Menu */}
-        <div className="dropdown md:hidden">
-          <div
-            tabIndex={0}
-            role="button"
-            className={`btn btn-ghost btn-circle transition-all ${
-              theme === "light"
-                ? "bg-white/20 text-white hover:bg-pink-300/40 hover:text-white"
-                : "bg-gray-800/30 text-gray-200 hover:bg-gray-700/40"
-            }`}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <motion.a
+            href="/"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="text-2xl font-bold text-gradient"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
+            AM
+          </motion.a>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-1">
+            {navItems.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className="px-4 py-2 rounded-lg text-base-content/70 hover:text-base-content hover:bg-base-200/50 transition-all font-medium"
+              >
+                {item.name}
+              </a>
+            ))}
           </div>
-          <ul
-            tabIndex={0}
-            className={`menu menu-sm dropdown-content rounded-lg z-10 mt-3 w-56 p-3 shadow-xl border transition-all ${
-              theme === "light"
-                ? "bg-white border-gray-200 hover:bg-pink-100"
-                : "bg-gray-800 border-gray-700 text-gray-200"
-            }`}
+
+          {/* Right Side - Theme Toggle & Mobile Menu */}
+          <div className="flex items-center gap-2">
+            <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="md:hidden btn btn-ghost btn-circle"
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden glass border-t border-base-300/50"
           >
-            {["Home", "About", "Projects", "Experience", "Contact"].map(
-              (item) => (
-                <li key={item}>
-                  <a
-                    href={item === "Home" ? "/" : `#${item.toLowerCase()}`}
-                    className={`btn btn-ghost font-semibold transition-colors duration-300 ${
-                      theme === "light"
-                        ? "text-gray-800 hover:text-pink-600"
-                        : "text-gray-200 hover:text-yellow-400"
-                    }`}
-                  >
-                    {item}
-                  </a>
-                </li>
-              )
-            )}
-          </ul>
-        </div>
-
-        {/* Desktop Menu */}
-        <div className="hidden md:flex">
-          <ul className="menu menu-horizontal p-0 space-x-4 text-lg">
-            {["Home", "About", "Projects", "Experience", "Contact"].map(
-              (item) => (
-                <li key={item}>
-                  <a
-                    href={item === "Home" ? "/" : `#${item.toLowerCase()}`}
-                    className={`btn btn-ghost font-semibold transition-colors duration-300 ${
-                      theme === "light"
-                        ? "text-white hover:bg-white/20 hover:text-white rounded-md px-3 py-2"
-                        : "text-gray-200 hover:bg-gray-700 hover:text-gray-200 rounded-md px-3 py-2"
-                    }`}
-                  >
-                    {item}
-                  </a>
-                </li>
-              )
-            )}
-          </ul>
-        </div>
-      </div>
-
-      {/* Navbar End (Theme Toggle on Right) */}
-      <div className="navbar-end">
-        <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
-      </div>
-    </div>
+            <div className="px-4 py-4 space-y-2">
+              {navItems.map((item, index) => (
+                <motion.a
+                  key={item.name}
+                  href={item.href}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block px-4 py-3 rounded-lg text-base-content/70 hover:text-base-content hover:bg-base-200/50 transition-all font-medium"
+                >
+                  {item.name}
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
   );
 }
