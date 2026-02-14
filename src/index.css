@@ -19,6 +19,13 @@
       Arial, sans-serif;
   }
 
+  /* Hide default cursor on desktop for custom cursor */
+  @media (min-width: 1024px) {
+    * {
+      cursor: none !important;
+    }
+  }
+
   h1,
   h2,
   h3,

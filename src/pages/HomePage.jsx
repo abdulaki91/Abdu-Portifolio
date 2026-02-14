@@ -2,11 +2,12 @@ import { Briefcase, Code, GraduationCap } from "lucide-react";
 import { useState } from "react";
 import About from "../components/About";
 import ProfileCard from "../components/Hero";
-import ProjectCard from "../components/ProjectCard";
+import BentoProjectGrid from "../components/BentoProjectGrid";
 import SkillCard from "../components/SkillCard";
 import ExperienceTimeline from "../components/ExperienvceTimeline";
 import ContactUs from "../components/ContactUs";
 import ProjectModal from "../components/ProjectModal";
+import CustomCursor from "../components/CustomCursor";
 import { FaBriefcase } from "react-icons/fa";
 
 const timelineData = [
@@ -119,12 +120,17 @@ export default function HomePage() {
 
   return (
     <>
+      {/* Custom Cursor - Only on desktop */}
+      <div className="hidden lg:block">
+        <CustomCursor />
+      </div>
+
       <ProfileCard />
       <About />
 
       {/* Projects Section */}
       <section id="projects" className="section-padding bg-base-200/50">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-gradient">
               Featured Projects
@@ -133,20 +139,10 @@ export default function HomePage() {
               A showcase of my recent work and contributions
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projectData.map((project, index) => (
-              <ProjectCard
-                key={index}
-                title={project.title}
-                description={project.description}
-                link={project.link}
-                liveLink={project.liveLink}
-                techStack={project.techStack}
-                featured={project.featured}
-                onViewDetails={() => setSelectedProject(project)}
-              />
-            ))}
-          </div>
+          <BentoProjectGrid
+            projects={projectData}
+            onViewDetails={setSelectedProject}
+          />
         </div>
       </section>
 

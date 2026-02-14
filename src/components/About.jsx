@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Code2, Lightbulb, Rocket, Users } from "lucide-react";
 import profileImage from "../assets/images/profile.jpg";
+import AnimatedCounter from "./AnimatedCounter";
 
 const About = () => {
   const highlights = [
@@ -75,8 +76,10 @@ const About = () => {
                 transition={{ duration: 3, repeat: Infinity }}
                 className="absolute -bottom-6 -right-6 bg-gradient-to-r from-primary to-secondary text-white px-6 py-3 rounded-2xl shadow-xl"
               >
-                <p className="font-bold text-lg">3+ Years</p>
-                <p className="text-sm opacity-90">Experience</p>
+                <p className="font-bold text-lg">
+                  <AnimatedCounter end={3} suffix="+" />
+                </p>
+                <p className="text-sm opacity-90">Years</p>
               </motion.div>
             </div>
           </motion.div>
@@ -112,11 +115,15 @@ const About = () => {
             {/* Quick Stats */}
             <div className="grid grid-cols-2 gap-4 pt-4">
               <div className="glass rounded-xl p-4 text-center">
-                <p className="text-3xl font-bold text-primary">15+</p>
+                <p className="text-3xl font-bold text-primary">
+                  <AnimatedCounter end={15} suffix="+" />
+                </p>
                 <p className="text-sm text-base-content/60">Projects</p>
               </div>
               <div className="glass rounded-xl p-4 text-center">
-                <p className="text-3xl font-bold text-secondary">10+</p>
+                <p className="text-3xl font-bold text-secondary">
+                  <AnimatedCounter end={10} suffix="+" />
+                </p>
                 <p className="text-sm text-base-content/60">Technologies</p>
               </div>
             </div>
