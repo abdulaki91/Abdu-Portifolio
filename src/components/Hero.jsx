@@ -107,24 +107,26 @@ const ProfileCard = () => {
           className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
         >
           <motion.a
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
             href="#projects"
-            className="btn btn-lg bg-gradient-to-r from-primary to-secondary text-white border-none hover:opacity-90 shadow-lg hover:shadow-xl transition-all group"
+            className="btn btn-lg btn-gradient shadow-2xl hover:shadow-indigo-500/25 transition-all group relative overflow-hidden"
           >
-            View My Work
-            <ArrowRight
-              className="ml-2 group-hover:translate-x-1 transition-transform"
-              size={20}
-            />
+            <span className="relative z-10 flex items-center">
+              View My Work
+              <ArrowRight
+                className="ml-2 group-hover:translate-x-1 transition-transform"
+                size={20}
+              />
+            </span>
           </motion.a>
 
           <motion.a
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
             href="/PDF/mycv.pdf"
             download="Abdulaki_Mustefa_CV"
-            className="btn btn-lg btn-outline btn-primary hover:bg-primary hover:text-white transition-all group"
+            className="btn btn-lg glass-card hover:bg-white/90 dark:hover:bg-slate-800/90 transition-all group"
           >
             <Download className="mr-2 group-hover:animate-bounce" size={20} />
             Download CV

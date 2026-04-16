@@ -7,7 +7,6 @@ import SkillCard from "../components/SkillCard";
 import ExperienceTimeline from "../components/ExperienvceTimeline";
 import ContactUs from "../components/ContactUs";
 import ProjectModal from "../components/ProjectModal";
-import CustomCursor from "../components/CustomCursor";
 import { FaBriefcase } from "react-icons/fa";
 
 const timelineData = [
@@ -120,11 +119,6 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Custom Cursor - Only on desktop */}
-      <div className="hidden lg:block">
-        <CustomCursor />
-      </div>
-
       <ProfileCard />
       <About />
 

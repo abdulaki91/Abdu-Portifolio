@@ -74,7 +74,7 @@ const About = () => {
               <motion.div
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 3, repeat: Infinity }}
-                className="absolute -bottom-6 -right-6 bg-gradient-to-r from-primary to-secondary text-white px-6 py-3 rounded-2xl shadow-xl"
+                className="absolute -bottom-6 -right-6 bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-2xl shadow-xl"
               >
                 <p className="font-bold text-lg">
                   <AnimatedCounter end={3} suffix="+" />
@@ -114,14 +114,14 @@ const About = () => {
 
             {/* Quick Stats */}
             <div className="grid grid-cols-2 gap-4 pt-4">
-              <div className="glass rounded-xl p-4 text-center">
-                <p className="text-3xl font-bold text-primary">
+              <div className="glass-card rounded-xl p-4 text-center">
+                <p className="text-3xl font-bold text-gradient-blue">
                   <AnimatedCounter end={15} suffix="+" />
                 </p>
                 <p className="text-sm text-base-content/60">Projects</p>
               </div>
-              <div className="glass rounded-xl p-4 text-center">
-                <p className="text-3xl font-bold text-secondary">
+              <div className="glass-card rounded-xl p-4 text-center">
+                <p className="text-3xl font-bold text-gradient">
                   <AnimatedCounter end={10} suffix="+" />
                 </p>
                 <p className="text-sm text-base-content/60">Technologies</p>
@@ -146,9 +146,9 @@ const About = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
               whileHover={{ y: -5 }}
-              className="glass rounded-2xl p-6 text-center hover:shadow-xl transition-all group"
+              className="glass-card rounded-2xl p-6 text-center hover:shadow-xl transition-all group"
             >
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-secondary text-white mb-4 group-hover:scale-110 transition-transform">
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 text-white mb-4 group-hover:scale-110 transition-transform shadow-lg">
                 {item.icon}
               </div>
               <h4 className="font-bold text-lg mb-2 text-base-content">

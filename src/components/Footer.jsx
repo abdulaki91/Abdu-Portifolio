@@ -54,13 +54,13 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative bg-base-200 border-t border-base-300">
+    <footer className="relative bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 border-t border-white/20 dark:border-slate-700/50">
       {/* Scroll to Top Button */}
       <motion.button
         onClick={scrollToTop}
-        whileHover={{ scale: 1.1 }}
+        whileHover={{ scale: 1.1, y: -2 }}
         whileTap={{ scale: 0.9 }}
-        className="absolute -top-6 left-1/2 transform -translate-x-1/2 btn btn-circle bg-gradient-to-r from-primary to-secondary text-white border-none shadow-lg hover:opacity-90"
+        className="absolute -top-6 left-1/2 transform -translate-x-1/2 btn btn-circle btn-gradient shadow-2xl hover:shadow-indigo-500/25"
         aria-label="Scroll to top"
       >
         <ArrowUp size={24} />
@@ -128,7 +128,15 @@ export default function Footer() {
                   abdulakimustefa@gmail.com
                 </a>
               </li>
-              <li>Haramaya, Ethiopia</li>
+              <li>
+                <a
+                  href="mailto:abdulaki@abdulaki.com"
+                  className="hover:text-primary transition-colors"
+                >
+                  abdulaki@abdulaki.com
+                </a>
+              </li>
+              <li>Haramaya University</li>
               <li>
                 <a
                   href="/PDF/mycv.pdf"
@@ -145,13 +153,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-base-300 pt-8 text-center">
           <p className="text-base-content/60 text-sm flex items-center justify-center gap-2 flex-wrap">
-            <span>&copy; {new Date().getFullYear()} Abdulaki Mustefa.</span>
-            <span className="hidden sm:inline">•</span>
-            <span className="flex items-center gap-1">
-              Built with{" "}
-              <Heart size={14} className="text-red-500 animate-pulse" /> and
-              React
-            </span>
+            <span>&copy; {new Date().getFullYear()} Abdulaki Mustefa</span>
           </p>
         </div>
       </div>

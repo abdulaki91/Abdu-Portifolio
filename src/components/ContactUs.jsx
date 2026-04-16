@@ -94,47 +94,53 @@ export default function ContactUs() {
           transition={{ duration: 0.6 }}
           className="space-y-6"
         >
-          <div className="glass rounded-2xl p-8">
-            <h3 className="text-2xl font-bold mb-6 text-base-content">
+          <div className="glass-card rounded-3xl p-8">
+            <h3 className="text-2xl font-bold mb-6 text-gradient">
               Get in Touch
             </h3>
 
             <div className="space-y-4">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <Mail className="text-primary" size={24} />
+              <div className="flex items-start gap-4 p-4 rounded-xl bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 border border-indigo-100 dark:border-indigo-800/30">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center flex-shrink-0 shadow-lg">
+                  <Mail className="text-white" size={24} />
                 </div>
                 <div>
                   <p className="font-semibold text-base-content">Email</p>
                   <a
                     href="mailto:abdulakimustefa@gmail.com"
-                    className="text-base-content/60 hover:text-primary transition-colors"
+                    className="text-base-content/60 hover:text-primary transition-colors block"
                   >
                     abdulakimustefa@gmail.com
+                  </a>
+                  <a
+                    href="mailto:abdulaki@abdulaki.com"
+                    className="text-base-content/60 hover:text-primary transition-colors block"
+                  >
+                    abdulaki@abdulaki.com
                   </a>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center flex-shrink-0">
-                  <User className="text-secondary" size={24} />
+              <div className="flex items-start gap-4 p-4 rounded-xl bg-gradient-to-r from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20 border border-cyan-100 dark:border-cyan-800/30">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 flex items-center justify-center flex-shrink-0 shadow-lg">
+                  <User className="text-white" size={24} />
                 </div>
                 <div>
                   <p className="font-semibold text-base-content">Location</p>
-                  <p className="text-base-content/60">Haramaya, Ethiopia</p>
+                  <p className="text-base-content/60">Haramaya University</p>
                 </div>
               </div>
             </div>
 
             {/* Download CV */}
             <motion.a
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.02, y: -2 }}
               whileTap={{ scale: 0.98 }}
               href="/PDF/mycv.pdf"
               target="_blank"
               rel="noopener noreferrer"
               download="Abdulaki_Mustefa_CV"
-              className="btn btn-outline btn-primary w-full mt-6 group"
+              className="btn btn-gradient w-full mt-6 group shadow-lg hover:shadow-indigo-500/25"
             >
               <Download className="mr-2 group-hover:animate-bounce" size={20} />
               Download My CV
@@ -142,7 +148,7 @@ export default function ContactUs() {
           </div>
 
           {/* Quick Links */}
-          <div className="glass rounded-2xl p-6">
+          <div className="glass-card rounded-3xl p-6">
             <p className="text-sm text-base-content/60 mb-3">
               Prefer other platforms?
             </p>
@@ -151,7 +157,7 @@ export default function ContactUs() {
                 href="https://github.com/abex-COM"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-sm btn-outline flex-1"
+                className="btn btn-sm glass-card flex-1 hover:bg-gradient-to-r hover:from-gray-600 hover:to-gray-700 hover:text-white transition-all"
               >
                 GitHub
               </a>
@@ -159,7 +165,7 @@ export default function ContactUs() {
                 href="https://t.me/abex91"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-sm btn-outline flex-1"
+                className="btn btn-sm glass-card flex-1 hover:bg-gradient-to-r hover:from-blue-500 hover:to-cyan-500 hover:text-white transition-all"
               >
                 Telegram
               </a>
@@ -173,7 +179,7 @@ export default function ContactUs() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="glass rounded-2xl p-8"
+          className="glass-card rounded-3xl p-8"
         >
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Name Input */}
@@ -265,11 +271,11 @@ export default function ContactUs() {
 
             {/* Submit Button */}
             <motion.button
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.02, y: -2 }}
               whileTap={{ scale: 0.98 }}
               type="submit"
               disabled={isLoading}
-              className="btn bg-gradient-to-r from-primary to-secondary text-white border-none w-full hover:opacity-90 transition-all"
+              className="btn btn-gradient w-full shadow-lg hover:shadow-indigo-500/25 transition-all"
             >
               {isLoading ? (
                 <>
