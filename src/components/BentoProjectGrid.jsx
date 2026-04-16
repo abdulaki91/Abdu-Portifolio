@@ -51,7 +51,7 @@ const BentoProjectGrid = ({ projects, onViewDetails }) => {
               <h3 className="text-3xl md:text-4xl font-bold mb-4 text-gradient">
                 {featuredProject.title}
               </h3>
-              <p className="text-base-content/70 text-lg mb-6 leading-relaxed">
+              <p className="text-gray-700 dark:text-gray-200 text-lg mb-6 leading-relaxed">
                 {featuredProject.description}
               </p>
 
@@ -140,10 +140,10 @@ const BentoProjectGrid = ({ projects, onViewDetails }) => {
 
               {/* Content */}
               <div className="relative z-10">
-                <h3 className="text-xl font-bold mb-3 text-base-content group-hover:text-gradient transition-all">
+                <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white group-hover:text-gradient transition-all">
                   {project.title}
                 </h3>
-                <p className="text-base-content/60 text-sm mb-4 line-clamp-3">
+                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3">
                   {project.description}
                 </p>
 

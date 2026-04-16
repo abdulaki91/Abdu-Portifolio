@@ -2,7 +2,7 @@ export default function ThemeToggle({ theme, toggleTheme }) {
   return (
     <button
       onClick={toggleTheme}
-      className="btn btn-circle border-none bg-white/30 dark:bg-gray-700 text-white hover:bg-white/50 transition"
+      className="btn btn-circle border-none bg-gray-200 dark:bg-slate-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-slate-600 transition-all"
     >
       {theme === "light" ? (
         <svg

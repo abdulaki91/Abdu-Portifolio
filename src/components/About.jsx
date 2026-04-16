@@ -27,7 +27,10 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="section-padding bg-base-200/50">
+    <section
+      id="about"
+      className="section-padding bg-gray-50 dark:bg-slate-800"
+    >
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <motion.div
@@ -40,7 +43,7 @@ const About = () => {
           <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-gradient">
             About Me
           </h2>
-          <p className="text-lg text-base-content/60 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Passionate developer dedicated to creating impactful digital
             experiences
           </p>
@@ -92,17 +95,17 @@ const About = () => {
             className="space-y-6"
           >
             <div>
-              <h3 className="text-2xl md:text-3xl font-bold mb-4 text-base-content">
+              <h3 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900 dark:text-white">
                 Building the Future, One Line at a Time
               </h3>
-              <p className="text-base-content/70 leading-relaxed mb-4">
+              <p className="text-gray-700 dark:text-gray-200 leading-relaxed mb-4">
                 I'm a passionate software developer dedicated to crafting
                 innovative and user-friendly digital solutions. With strong
                 expertise in modern web and mobile technologies, I enjoy
                 transforming complex ideas into efficient, real-world
                 applications.
               </p>
-              <p className="text-base-content/70 leading-relaxed">
+              <p className="text-gray-700 dark:text-gray-200 leading-relaxed">
                 Currently serving as a Graduate Assistant II at Haramaya
                 University, I combine academic excellence with practical
                 development experience. I'm always eager to learn, grow, and
@@ -117,13 +120,17 @@ const About = () => {
                 <p className="text-3xl font-bold text-gradient-blue">
                   <AnimatedCounter end={15} suffix="+" />
                 </p>
-                <p className="text-sm text-base-content/60">Projects</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  Projects
+                </p>
               </div>
               <div className="glass-card rounded-xl p-4 text-center">
                 <p className="text-3xl font-bold text-gradient">
                   <AnimatedCounter end={10} suffix="+" />
                 </p>
-                <p className="text-sm text-base-content/60">Technologies</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  Technologies
+                </p>
               </div>
             </div>
           </motion.div>
@@ -150,10 +157,12 @@ const About = () => {
               <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 text-white mb-4 group-hover:scale-110 transition-transform shadow-lg">
                 {item.icon}
               </div>
-              <h4 className="font-bold text-lg mb-2 text-base-content">
+              <h4 className="font-bold text-lg mb-2 text-gray-900 dark:text-white">
                 {item.title}
               </h4>
-              <p className="text-sm text-base-content/60">{item.description}</p>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                {item.description}
+              </p>
             </motion.div>
           ))}
         </motion.div>

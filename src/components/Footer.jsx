@@ -54,7 +54,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 border-t border-white/20 dark:border-slate-700/50">
+    <footer className="relative transition-all duration-300 bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-700">
       {/* Scroll to Top Button */}
       <motion.button
         onClick={scrollToTop}
@@ -73,7 +73,7 @@ export default function Footer() {
             <h3 className="text-2xl font-bold text-gradient mb-4">
               Abdulaki Mustefa
             </h3>
-            <p className="text-base-content/60 mb-4">
+            <p className="text-gray-600 dark:text-gray-300 mb-4">
               Full-Stack Developer passionate about creating impactful digital
               solutions.
             </p>
@@ -97,7 +97,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-bold text-lg mb-4 text-base-content">
+            <h4 className="font-bold text-lg mb-4 text-gray-900 dark:text-white">
               Quick Links
             </h4>
             <ul className="space-y-2">
@@ -105,7 +105,7 @@ export default function Footer() {
                 <li key={index}>
                   <a
                     href={link.href}
-                    className="text-base-content/60 hover:text-primary transition-colors inline-block"
+                    className="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors inline-block"
                   >
                     {link.name}
                   </a>
@@ -116,14 +116,14 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h4 className="font-bold text-lg mb-4 text-base-content">
+            <h4 className="font-bold text-lg mb-4 text-gray-900 dark:text-white">
               Get in Touch
             </h4>
-            <ul className="space-y-2 text-base-content/60">
+            <ul className="space-y-2 text-gray-600 dark:text-gray-300">
               <li>
                 <a
                   href="mailto:abdulakimustefa@gmail.com"
-                  className="hover:text-primary transition-colors"
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                 >
                   abdulakimustefa@gmail.com
                 </a>
@@ -131,7 +131,7 @@ export default function Footer() {
               <li>
                 <a
                   href="mailto:abdulaki@abdulaki.com"
-                  className="hover:text-primary transition-colors"
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                 >
                   abdulaki@abdulaki.com
                 </a>
@@ -141,7 +141,7 @@ export default function Footer() {
                 <a
                   href="/PDF/mycv.pdf"
                   download="Abdulaki_Mustefa_CV"
-                  className="inline-flex items-center gap-2 text-primary hover:underline"
+                  className="inline-flex items-center gap-2 text-indigo-600 dark:text-indigo-400 hover:underline"
                 >
                   Download CV
                 </a>
@@ -151,8 +151,8 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-base-300 pt-8 text-center">
-          <p className="text-base-content/60 text-sm flex items-center justify-center gap-2 flex-wrap">
+        <div className="border-t border-slate-300 dark:border-slate-700 pt-8 text-center">
+          <p className="text-gray-500 dark:text-gray-400 text-sm flex items-center justify-center gap-2 flex-wrap">
             <span>&copy; {new Date().getFullYear()} Abdulaki Mustefa</span>
           </p>
         </div>

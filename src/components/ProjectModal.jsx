@@ -66,7 +66,7 @@ const ProjectModal = ({ project, onClose }) => {
               <h2 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-poppins mb-3">
                 {project.title}
               </h2>
-              <p className="text-lg text-base-content/80 font-inter leading-relaxed">
+              <p className="text-lg text-gray-700 dark:text-gray-200 font-inter leading-relaxed">
                 {project.description}
               </p>
             </motion.div>
@@ -81,10 +81,10 @@ const ProjectModal = ({ project, onClose }) => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.3 }}
               >
-                <h3 className="text-xl font-bold mb-3 text-base-content font-poppins">
+                <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white font-poppins">
                   About the Project
                 </h3>
-                <p className="text-base-content/70 leading-relaxed font-inter">
+                <p className="text-gray-700 dark:text-gray-200 leading-relaxed font-inter">
                   {project.fullDescription}
                 </p>
               </motion.div>
@@ -97,7 +97,7 @@ const ProjectModal = ({ project, onClose }) => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.4 }}
               >
-                <h3 className="text-xl font-bold mb-3 text-base-content font-poppins">
+                <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white font-poppins">
                   Key Features
                 </h3>
                 <ul className="space-y-2">
@@ -107,7 +107,7 @@ const ProjectModal = ({ project, onClose }) => {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.5 + index * 0.1 }}
-                      className="flex items-start gap-3 text-base-content/70 font-inter"
+                      className="flex items-start gap-3 text-gray-600 dark:text-gray-300 font-inter"
                     >
                       <CheckCircle2
                         size={20}
@@ -127,7 +127,7 @@ const ProjectModal = ({ project, onClose }) => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.6 }}
               >
-                <h3 className="text-xl font-bold mb-3 text-base-content font-poppins">
+                <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white font-poppins">
                   Tech Stack
                 </h3>
                 <div className="flex flex-wrap gap-2">

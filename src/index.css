@@ -16,7 +16,6 @@
   }
 
   body {
-    @apply bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 text-base-content antialiased;
     font-family:
       "Inter",
       -apple-system,
@@ -27,6 +26,19 @@
       Arial,
       sans-serif;
     background-attachment: fixed;
+    transition: all 0.3s ease;
+  }
+
+  /* Light mode styles */
+  body {
+    @apply bg-gradient-to-br from-gray-50 via-white to-gray-100;
+    color: rgb(15 23 42); /* slate-900 */
+  }
+
+  /* Dark mode styles */
+  [data-theme="dark"] body {
+    @apply bg-gradient-to-br from-slate-900 via-slate-800 to-gray-900;
+    color: rgb(248 250 252); /* slate-50 */
   }
 
   h1,
@@ -119,24 +131,63 @@
   }
 
   .glass {
-    @apply bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl border border-white/20 dark:border-slate-700/50;
-    box-shadow:
-      0 8px 32px 0 rgba(31, 38, 135, 0.37),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.5),
-      inset 0 -1px 0 0 rgba(255, 255, 255, 0.1);
+    backdrop-blur-xl;
+    transition: all 0.3s ease;
+  }
+
+  /* Light mode glass */
+  .glass {
+    @apply bg-white/80 border border-gray-200/60;
+    box-shadow: 
+      0 8px 32px 0 rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.8);
+  }
+
+  /* Dark mode glass */
+  [data-theme="dark"] .glass {
+    @apply bg-slate-800/80 border border-slate-700/60;
+    box-shadow: 
+      0 8px 32px 0 rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
   }
 
   .glass-card {
-    @apply glass;
+    backdrop-blur-xl;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
+  /* Light mode glass card */
+  .glass-card {
+    @apply bg-white/90 border border-gray-200/80;
+    box-shadow: 
+      0 4px 16px 0 rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+  }
+
+  /* Dark mode glass card */
+  [data-theme="dark"] .glass-card {
+    @apply bg-slate-800/90 border border-slate-700/80;
+    box-shadow: 
+      0 4px 16px 0 rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  }
+
   .glass-card:hover {
-    transform: translateY(-8px);
-    box-shadow:
-      0 20px 40px 0 rgba(31, 38, 135, 0.4),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.6),
-      inset 0 -1px 0 0 rgba(255, 255, 255, 0.2);
+    transform: translateY(-4px);
+  }
+
+  /* Light mode glass card hover */
+  .glass-card:hover {
+    box-shadow: 
+      0 12px 32px 0 rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 0 rgba(255, 255, 255, 1);
+  }
+
+  /* Dark mode glass card hover */
+  [data-theme="dark"] .glass-card:hover {
+    box-shadow: 
+      0 12px 32px 0 rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
   }
 
   .section-padding {
@@ -168,5 +219,47 @@
     box-shadow:
       0 12px 32px 0 rgba(31, 38, 135, 0.3),
       inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
+  }
+
+  /* Text color utilities for better visibility */
+  .text-content {
+    color: rgb(15 23 42); /* slate-900 for light */
+  }
+
+  [data-theme="dark"] .text-content {
+    color: rgb(248 250 252); /* slate-50 for dark */
+  }
+
+  .text-content-secondary {
+    color: rgb(51 65 85); /* slate-700 for light */
+  }
+
+  [data-theme="dark"] .text-content-secondary {
+    color: rgb(203 213 225); /* slate-300 for dark */
+  }
+
+  .text-content-muted {
+    color: rgb(71 85 105); /* slate-600 for light */
+  }
+
+  [data-theme="dark"] .text-content-muted {
+    color: rgb(148 163 184); /* slate-400 for dark */
+  }
+
+  /* Section backgrounds */
+  .bg-section-light {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+
+  [data-theme="dark"] .bg-section-light {
+    background-color: rgba(30, 41, 59, 0.8);
+  }
+
+  .bg-section-alt {
+    background-color: rgba(248, 250, 252, 0.9);
+  }
+
+  [data-theme="dark"] .bg-section-alt {
+    background-color: rgba(15, 23, 42, 0.9);
   }
 }

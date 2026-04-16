@@ -47,7 +47,9 @@ export default function NavBar() {
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "glass shadow-lg" : "bg-transparent"
+        isScrolled
+          ? "glass shadow-lg"
+          : "bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -68,7 +70,7 @@ export default function NavBar() {
               <a
                 key={item.name}
                 href={item.href}
-                className="px-4 py-2 rounded-lg text-base-content/70 hover:text-base-content hover:bg-base-200/50 transition-all font-medium"
+                className="px-4 py-2 rounded-lg text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-slate-700 transition-all font-medium"
               >
                 {item.name}
               </a>
@@ -99,7 +101,7 @@ export default function NavBar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden glass border-t border-base-300/50"
+            className="md:hidden glass border-t border-gray-200 dark:border-slate-700"
           >
             <div className="px-4 py-4 space-y-2">
               {navItems.map((item, index) => (
@@ -110,7 +112,7 @@ export default function NavBar() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="block px-4 py-3 rounded-lg text-base-content/70 hover:text-base-content hover:bg-base-200/50 transition-all font-medium"
+                  className="block px-4 py-3 rounded-lg text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-slate-700 transition-all font-medium"
                 >
                   {item.name}
                 </motion.a>

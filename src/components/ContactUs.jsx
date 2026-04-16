@@ -79,7 +79,7 @@ export default function ContactUs() {
         <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-gradient">
           Let's Work Together
         </h2>
-        <p className="text-lg text-base-content/60 max-w-2xl mx-auto">
+        <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
           Have a project in mind? Let's discuss how I can help bring your ideas
           to life
         </p>
@@ -105,16 +105,18 @@ export default function ContactUs() {
                   <Mail className="text-white" size={24} />
                 </div>
                 <div>
-                  <p className="font-semibold text-base-content">Email</p>
+                  <p className="font-semibold text-gray-900 dark:text-white">
+                    Email
+                  </p>
                   <a
                     href="mailto:abdulakimustefa@gmail.com"
-                    className="text-base-content/60 hover:text-primary transition-colors block"
+                    className="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors block"
                   >
                     abdulakimustefa@gmail.com
                   </a>
                   <a
                     href="mailto:abdulaki@abdulaki.com"
-                    className="text-base-content/60 hover:text-primary transition-colors block"
+                    className="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors block"
                   >
                     abdulaki@abdulaki.com
                   </a>
@@ -126,8 +128,12 @@ export default function ContactUs() {
                   <User className="text-white" size={24} />
                 </div>
                 <div>
-                  <p className="font-semibold text-base-content">Location</p>
-                  <p className="text-base-content/60">Haramaya University</p>
+                  <p className="font-semibold text-gray-900 dark:text-white">
+                    Location
+                  </p>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    Haramaya University
+                  </p>
                 </div>
               </div>
             </div>
@@ -149,7 +155,7 @@ export default function ContactUs() {
 
           {/* Quick Links */}
           <div className="glass-card rounded-3xl p-6">
-            <p className="text-sm text-base-content/60 mb-3">
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
               Prefer other platforms?
             </p>
             <div className="flex gap-3">

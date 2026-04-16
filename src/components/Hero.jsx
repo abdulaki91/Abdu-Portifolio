@@ -24,7 +24,7 @@ const ProfileCard = () => {
   };
 
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-mesh bg-noise">
+    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-white dark:bg-slate-900 bg-mesh bg-noise">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
@@ -76,7 +76,7 @@ const ProfileCard = () => {
           variants={itemVariants}
           className="text-5xl md:text-7xl lg:text-8xl font-extrabold mb-6 leading-tight"
         >
-          <span className="block text-base-content">Hi, I'm</span>
+          <span className="block text-gray-900 dark:text-white">Hi, I'm</span>
           <span className="block text-gradient animate-gradient">
             Abdulaki Mustefa
           </span>
@@ -85,7 +85,7 @@ const ProfileCard = () => {
         {/* Tagline */}
         <motion.p
           variants={itemVariants}
-          className="text-xl md:text-2xl lg:text-3xl text-base-content/70 mb-4 font-medium"
+          className="text-xl md:text-2xl lg:text-3xl text-gray-700 dark:text-gray-200 mb-4 font-medium"
         >
           Full-Stack Developer & Problem Solver
         </motion.p>
@@ -93,7 +93,7 @@ const ProfileCard = () => {
         {/* Value Proposition */}
         <motion.p
           variants={itemVariants}
-          className="text-base md:text-lg text-base-content/60 max-w-2xl mx-auto mb-10 leading-relaxed"
+          className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed"
         >
           I craft elegant digital solutions that transform complex challenges
           into intuitive experiences. Specializing in modern web and mobile

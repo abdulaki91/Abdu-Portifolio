@@ -123,13 +123,16 @@ export default function HomePage() {
       <About />
 
       {/* Projects Section */}
-      <section id="projects" className="section-padding bg-base-200/50">
+      <section
+        id="projects"
+        className="section-padding bg-gray-50 dark:bg-slate-800"
+      >
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-gradient">
               Featured Projects
             </h2>
-            <p className="text-lg text-base-content/60 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
               A showcase of my recent work and contributions
             </p>
           </div>
@@ -141,13 +144,16 @@ export default function HomePage() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="section-padding">
+      <section
+        id="skills"
+        className="section-padding bg-gray-50 dark:bg-slate-800"
+      >
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-gradient">
               Skills & Expertise
             </h2>
-            <p className="text-lg text-base-content/60 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
               Technologies and tools I use to bring ideas to life
             </p>
           </div>
@@ -165,13 +171,16 @@ export default function HomePage() {
       </section>
 
       {/* Experience Section */}
-      <section id="experience" className="section-padding">
+      <section
+        id="experience"
+        className="section-padding bg-white dark:bg-slate-900"
+      >
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-gradient">
               Experience & Education
             </h2>
-            <p className="text-lg text-base-content/60 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
               My professional journey and academic background
             </p>
           </div>
@@ -189,7 +198,10 @@ export default function HomePage() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="section-padding bg-base-200/50">
+      <section
+        id="contact"
+        className="section-padding bg-gray-50 dark:bg-slate-800"
+      >
         <ContactUs />
       </section>
 
