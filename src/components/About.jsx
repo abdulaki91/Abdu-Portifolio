@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { Code2, Lightbulb, Rocket, Users } from "lucide-react";
-import profileImage from "../assets/images/profile.jpg";
 import AnimatedCounter from "./AnimatedCounter";
 
 const About = () => {
@@ -64,7 +63,7 @@ const About = () => {
               {/* Image Container */}
               <div className="relative glass rounded-3xl p-2 shadow-2xl">
                 <img
-                  src={profileImage}
+                  src="/profile.jpg"
                   alt="Abdulaki Mustefa - Software Developer"
                   className="rounded-2xl w-full h-auto object-cover"
                 />
