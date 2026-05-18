@@ -1,29 +1,29 @@
 import db from "../config/db.config.js";
 
 // Create the users table if it doesn't exist
-export const createUsersTable = () => {
+export const createUsersTable = async () => {
   const sql = `
     CREATE TABLE IF NOT EXISTS users (
-      id INT AUTO_INCREMENT PRIMARY KEY,
+      id SERIAL PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
       email VARCHAR(255) NOT NULL UNIQUE,
-      phone VARCHAR(20) NOT NULL ,
+      phone VARCHAR(20) NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
   `;
-  return db.execute(sql);
+  return db.query(sql);
 };
 
 // Insert user into DB
-export const insertUser = (name, email, phone) => {
+export const insertUser = async (name, email, phone) => {
   console.log("InsertUser:", { name, email, phone });
 
-  const sql = `INSERT INTO users (name, email, phone) VALUES (?, ?, ?)`;
-  return db.execute(sql, [name, email, phone]);
+  const sql = `INSERT INTO users (name, email, phone) VALUES ($1, $2, $3) RETURNING *`;
+  return db.query(sql, [name, email, phone]);
 };
 
 // Get all users
-export const getAllUsers = () => {
+export const getAllUsers = async () => {
   const sql = `SELECT * FROM users`;
   return db.query(sql);
 };

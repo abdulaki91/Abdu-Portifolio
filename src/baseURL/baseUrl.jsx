@@ -1,2 +1,2 @@
-const baseUrl = "https://userregistrationbackend.abdiko.com";
+const baseUrl = "http://localhost:5000";
 export default baseUrl;

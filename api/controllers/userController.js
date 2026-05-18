@@ -21,7 +21,8 @@ export const createUser = async (req, res, next) => {
     await insertUser(name, email, phone);
     res.status(201).json({ message: "User created successfully" });
   } catch (err) {
-    if (err.code === "ER_DUP_ENTRY") {
+    if (err.code === "23505") {
+      // PostgreSQL unique violation error code
       return res.status(400).json({ message: "Email already exists." });
     }
     next(err); // Pass error to Express error handler
@@ -30,8 +31,8 @@ export const createUser = async (req, res, next) => {
 
 export const listUsers = async (req, res, next) => {
   try {
-    const [users] = await getAllUsers();
-    res.json(users);
+    const result = await getAllUsers();
+    res.json(result.rows);
   } catch (err) {
     next(err);
   }

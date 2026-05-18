@@ -131,14 +131,14 @@
   }
 
   .glass {
-    backdrop-blur-xl;
+    @apply backdrop-blur-xl;
     transition: all 0.3s ease;
   }
 
   /* Light mode glass */
   .glass {
     @apply bg-white/80 border border-gray-200/60;
-    box-shadow: 
+    box-shadow:
       0 8px 32px 0 rgba(0, 0, 0, 0.1),
       inset 0 1px 0 0 rgba(255, 255, 255, 0.8);
   }
@@ -146,20 +146,20 @@
   /* Dark mode glass */
   [data-theme="dark"] .glass {
     @apply bg-slate-800/80 border border-slate-700/60;
-    box-shadow: 
+    box-shadow:
       0 8px 32px 0 rgba(0, 0, 0, 0.4),
       inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
   }
 
   .glass-card {
-    backdrop-blur-xl;
+    @apply backdrop-blur-xl;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   /* Light mode glass card */
   .glass-card {
     @apply bg-white/90 border border-gray-200/80;
-    box-shadow: 
+    box-shadow:
       0 4px 16px 0 rgba(0, 0, 0, 0.1),
       inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
   }
@@ -167,7 +167,7 @@
   /* Dark mode glass card */
   [data-theme="dark"] .glass-card {
     @apply bg-slate-800/90 border border-slate-700/80;
-    box-shadow: 
+    box-shadow:
       0 4px 16px 0 rgba(0, 0, 0, 0.3),
       inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
   }
@@ -178,14 +178,14 @@
 
   /* Light mode glass card hover */
   .glass-card:hover {
-    box-shadow: 
+    box-shadow:
       0 12px 32px 0 rgba(0, 0, 0, 0.15),
       inset 0 1px 0 0 rgba(255, 255, 255, 1);
   }
 
   /* Dark mode glass card hover */
   [data-theme="dark"] .glass-card:hover {
-    box-shadow: 
+    box-shadow:
       0 12px 32px 0 rgba(0, 0, 0, 0.4),
       inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
   }

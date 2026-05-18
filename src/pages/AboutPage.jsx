@@ -60,7 +60,7 @@ const AboutPage = () => {
     {
       icon: <Globe className="text-gray-700" />,
       label: "Website",
-      url: "https://abdiko.com",
+      url: "https://abdulaki.com",
       color: "hover:text-green-600",
     },
   ];
