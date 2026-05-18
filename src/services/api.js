@@ -74,6 +74,49 @@ export const settingsAPI = {
   delete: (key) => api.delete(`/api/settings/${key}`),
 };
 
+// Upload API
+export const uploadAPI = {
+  uploadSingle: (type, file) => {
+    const formData = new FormData();
+    formData.append(type, file);
+    return api.post(`/api/uploads/single/${type}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  },
+  uploadMultiple: (type, files) => {
+    const formData = new FormData();
+    files.forEach((file) => {
+      formData.append(type, file);
+    });
+    return api.post(`/api/uploads/multiple/${type}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  },
+  uploadMixed: (files) => {
+    const formData = new FormData();
+    Object.keys(files).forEach((fieldname) => {
+      if (Array.isArray(files[fieldname])) {
+        files[fieldname].forEach((file) => {
+          formData.append(fieldname, file);
+        });
+      } else {
+        formData.append(fieldname, files[fieldname]);
+      }
+    });
+    return api.post("/api/uploads/mixed", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  },
+  deleteFile: (filename) => api.delete(`/api/uploads/${filename}`),
+  getFileInfo: (filename) => api.get(`/api/uploads/info/${filename}`),
+};
+
 // Initialize Database
 export const initAPI = {
   initialize: () => api.post("/api/init"),

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import emailjs from "emailjs-com";
 import {
@@ -10,6 +10,7 @@ import {
   AlertCircle,
   Download,
 } from "lucide-react";
+import { settingsAPI } from "../services/api";
 
 export default function ContactUs() {
   const [contactData, setContactData] = useState({
@@ -19,6 +20,27 @@ export default function ContactUs() {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState({ type: "", message: "" });
+  const [settings, setSettings] = useState({});
+
+  // Fallback data
+  const fallbackSettings = {
+    contact_email: "abdulakimustefa@gmail.com",
+    github_url: "https://github.com/abex-COM",
+  };
+
+  useEffect(() => {
+    fetchSettings();
+  }, []);
+
+  const fetchSettings = async () => {
+    try {
+      const response = await settingsAPI.getAll();
+      setSettings({ ...fallbackSettings, ...response.data.settings });
+    } catch (error) {
+      console.error("Error fetching settings:", error);
+      setSettings(fallbackSettings);
+    }
+  };
 
   const serviceID = "service_pylyirq";
   const templateID = "template_3uj2dvg";
@@ -39,7 +61,7 @@ export default function ContactUs() {
       from_name: contactData.name,
       from_email: contactData.email,
       message: contactData.message,
-      to_email: "your-email@example.com",
+      to_email: settings.contact_email || "abdulakimustefa@gmail.com",
     };
 
     try {
@@ -109,10 +131,10 @@ export default function ContactUs() {
                     Email
                   </p>
                   <a
-                    href="mailto:abdulakimustefa@gmail.com"
+                    href={`mailto:${settings.contact_email || "abdulakimustefa@gmail.com"}`}
                     className="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors block"
                   >
-                    abdulakimustefa@gmail.com
+                    {settings.contact_email || "abdulakimustefa@gmail.com"}
                   </a>
                   <a
                     href="mailto:abdulaki@abdulaki.com"
@@ -142,7 +164,11 @@ export default function ContactUs() {
             <motion.a
               whileHover={{ scale: 1.02, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              href="/PDF/mycv.pdf"
+              href={
+                settings.cv_file_path?.startsWith("/uploads")
+                  ? `http://localhost:5000${settings.cv_file_path}`
+                  : settings.cv_file_path || "/PDF/mycv.pdf"
+              }
               target="_blank"
               rel="noopener noreferrer"
               download="Abdulaki_Mustefa_CV"
@@ -160,7 +186,7 @@ export default function ContactUs() {
             </p>
             <div className="flex gap-3">
               <a
-                href="https://github.com/abex-COM"
+                href={settings.github_url || "https://github.com/abex-COM"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-sm glass-card flex-1 hover:bg-gradient-to-r hover:from-gray-600 hover:to-gray-700 hover:text-white transition-all"

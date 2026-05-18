@@ -22,6 +22,7 @@ const skillRoutes = await import("./routes/skillRoute.js");
 const experienceRoutes = await import("./routes/experienceRoute.js");
 const settingsRoutes = await import("./routes/settingsRoute.js");
 const userRoutes = await import("./routes/userRoute.js");
+const uploadRoutes = await import("./routes/uploadRoute.js");
 
 // Register routes
 app.use("/api/init", initRoutes.default);
@@ -31,6 +32,10 @@ app.use("/api/skills", skillRoutes.default);
 app.use("/api/experiences", experienceRoutes.default);
 app.use("/api/settings", settingsRoutes.default);
 app.use("/api/users", userRoutes.default);
+app.use("/api/uploads", uploadRoutes.default);
+
+// Serve static files from uploads directory
+app.use("/uploads", express.static("uploads"));
 
 // Error handling middleware
 app.use((err, req, res, next) => {

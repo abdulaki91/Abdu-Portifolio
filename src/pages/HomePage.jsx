@@ -1,21 +1,49 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { Briefcase, Code, GraduationCap } from "lucide-react";
 import { FaBriefcase } from "react-icons/fa";
 import About from "../components/About";
 import ProfileCard from "../components/Hero";
-import BentoProjectGrid from "../components/BentoProjectGrid";
-import SkillCard from "../components/SkillCard";
-import ExperienceTimeline from "../components/ExperienvceTimeline";
 import ContactUs from "../components/ContactUs";
-import ProjectModal from "../components/ProjectModal";
-import { projectsAPI, skillsAPI, experiencesAPI } from "../services/api";
+import {
+  projectsAPI,
+  skillsAPI,
+  experiencesAPI,
+  settingsAPI,
+} from "../services/api";
+import { useDocumentMeta } from "../hooks/useDocumentMeta";
+
+// Lazy load heavy components for better performance
+const BentoProjectGrid = lazy(() => import("../components/BentoProjectGrid"));
+const SkillCard = lazy(() => import("../components/SkillCard"));
+const ExperienceTimeline = lazy(
+  () => import("../components/ExperienvceTimeline"),
+);
+const ProjectModal = lazy(() => import("../components/ProjectModal"));
+
+// Loading component for lazy-loaded sections
+const SectionLoader = () => (
+  <div className="flex items-center justify-center h-32">
+    <div className="relative">
+      <div className="w-8 h-8 border-2 border-indigo-200 rounded-full animate-spin"></div>
+      <div className="absolute top-0 left-0 w-8 h-8 border-2 border-indigo-600 rounded-full animate-spin border-t-transparent"></div>
+    </div>
+  </div>
+);
 
 export default function HomePage() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [projects, setProjects] = useState([]);
   const [skills, setSkills] = useState([]);
   const [experiences, setExperiences] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [settings, setSettings] = useState({});
+  const [sectionsLoaded, setSectionsLoaded] = useState({
+    projects: false,
+    skills: false,
+    experiences: false,
+  });
+
+  // Use the document meta hook
+  useDocumentMeta(settings);
 
   // Fallback data (your original static data)
   const fallbackTimelineData = [
@@ -85,58 +113,69 @@ export default function HomePage() {
   ];
 
   useEffect(() => {
-    fetchData();
+    // Load settings first for immediate hero display
+    fetchSettings();
+
+    // Load other data progressively
+    setTimeout(() => fetchProjects(), 100);
+    setTimeout(() => fetchSkills(), 200);
+    setTimeout(() => fetchExperiences(), 300);
   }, []);
 
-  const fetchData = async () => {
+  const fetchSettings = async () => {
     try {
-      // Try to fetch from API, fall back to static data if it fails
-      const [projectsRes, skillsRes, experiencesRes] = await Promise.allSettled(
-        [projectsAPI.getAll(), skillsAPI.getAll(), experiencesAPI.getAll()],
-      );
-
-      // Handle projects
-      if (projectsRes.status === "fulfilled") {
-        const apiProjects = projectsRes.value.data.projects.map((project) => ({
-          ...project,
-          techStack: project.tech_stack,
-          link: project.github_link,
-          liveLink: project.live_link,
-          featured: project.is_featured,
-        }));
-        setProjects(apiProjects);
-      } else {
-        setProjects(fallbackProjectData);
-      }
-
-      // Handle skills
-      if (skillsRes.status === "fulfilled") {
-        setSkills(skillsRes.value.data.skills);
-      } else {
-        setSkills(fallbackSkills);
-      }
-
-      // Handle experiences
-      if (experiencesRes.status === "fulfilled") {
-        const apiExperiences = experiencesRes.value.data.experiences.map(
-          (exp) => ({
-            icon: <Briefcase className="text-gray-700 dark:text-gray-200" />,
-            title: exp.title,
-            subtitle: exp.subtitle,
-          }),
-        );
-        setExperiences(apiExperiences);
-      } else {
-        setExperiences(fallbackTimelineData);
-      }
+      const response = await settingsAPI.getAll();
+      setSettings(response.data.settings);
     } catch (error) {
-      console.error("Error fetching data:", error);
-      // Use fallback data
+      console.error("Error fetching settings:", error);
+    }
+  };
+
+  const fetchProjects = async () => {
+    try {
+      const response = await projectsAPI.getAll();
+      const apiProjects = response.data.projects.map((project) => ({
+        ...project,
+        techStack: project.tech_stack,
+        link: project.github_link,
+        liveLink: project.live_link,
+        featured: project.is_featured,
+      }));
+      setProjects(apiProjects);
+    } catch (error) {
+      console.error("Error fetching projects:", error);
       setProjects(fallbackProjectData);
+    } finally {
+      setSectionsLoaded((prev) => ({ ...prev, projects: true }));
+    }
+  };
+
+  const fetchSkills = async () => {
+    try {
+      const response = await skillsAPI.getAll();
+      setSkills(response.data.skills);
+    } catch (error) {
+      console.error("Error fetching skills:", error);
       setSkills(fallbackSkills);
+    } finally {
+      setSectionsLoaded((prev) => ({ ...prev, skills: true }));
+    }
+  };
+
+  const fetchExperiences = async () => {
+    try {
+      const response = await experiencesAPI.getAll();
+      const apiExperiences = response.data.experiences.map((exp) => ({
+        icon: <Briefcase className="text-gray-700 dark:text-gray-200" />,
+        title: exp.title,
+        subtitle: exp.subtitle,
+      }));
+      setExperiences(apiExperiences);
+    } catch (error) {
+      console.error("Error fetching experiences:", error);
       setExperiences(fallbackTimelineData);
     } finally {
-      setLoading(false);
+      setSectionsLoaded((prev) => ({ ...prev, experiences: true }));
     }
   };
 
@@ -159,16 +198,16 @@ export default function HomePage() {
               A showcase of my recent work and contributions
             </p>
           </div>
-          {loading ? (
-            <div className="flex items-center justify-center h-64">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-            </div>
-          ) : (
-            <BentoProjectGrid
-              projects={projects}
-              onViewDetails={setSelectedProject}
-            />
-          )}
+          <Suspense fallback={<SectionLoader />}>
+            {sectionsLoaded.projects ? (
+              <BentoProjectGrid
+                projects={projects}
+                onViewDetails={setSelectedProject}
+              />
+            ) : (
+              <SectionLoader />
+            )}
+          </Suspense>
         </div>
       </section>
 
@@ -186,22 +225,22 @@ export default function HomePage() {
               Technologies and tools I use to bring ideas to life
             </p>
           </div>
-          {loading ? (
-            <div className="flex items-center justify-center h-64">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {skills.map((skill, index) => (
-                <SkillCard
-                  key={skill.id || index}
-                  title={skill.name}
-                  level={skill.level}
-                  category={skill.category}
-                />
-              ))}
-            </div>
-          )}
+          <Suspense fallback={<SectionLoader />}>
+            {sectionsLoaded.skills ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {skills.map((skill, index) => (
+                  <SkillCard
+                    key={skill.id || index}
+                    title={skill.name}
+                    level={skill.level}
+                    category={skill.category}
+                  />
+                ))}
+              </div>
+            ) : (
+              <SectionLoader />
+            )}
+          </Suspense>
         </div>
       </section>
 
@@ -219,22 +258,22 @@ export default function HomePage() {
               My professional journey and academic background
             </p>
           </div>
-          {loading ? (
-            <div className="flex items-center justify-center h-64">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-            </div>
-          ) : (
-            <div className="space-y-6">
-              {experiences.map((item, index) => (
-                <ExperienceTimeline
-                  key={index}
-                  icon={item.icon}
-                  title={item.title}
-                  subtitle={item.subtitle}
-                />
-              ))}
-            </div>
-          )}
+          <Suspense fallback={<SectionLoader />}>
+            {sectionsLoaded.experiences ? (
+              <div className="space-y-6">
+                {experiences.map((item, index) => (
+                  <ExperienceTimeline
+                    key={index}
+                    icon={item.icon}
+                    title={item.title}
+                    subtitle={item.subtitle}
+                  />
+                ))}
+              </div>
+            ) : (
+              <SectionLoader />
+            )}
+          </Suspense>
         </div>
       </section>
 
@@ -248,10 +287,18 @@ export default function HomePage() {
 
       {/* Project Modal */}
       {selectedProject && (
-        <ProjectModal
-          project={selectedProject}
-          onClose={() => setSelectedProject(null)}
-        />
+        <Suspense
+          fallback={
+            <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+              <SectionLoader />
+            </div>
+          }
+        >
+          <ProjectModal
+            project={selectedProject}
+            onClose={() => setSelectedProject(null)}
+          />
+        </Suspense>
       )}
     </>
   );

@@ -89,6 +89,12 @@ export const initializeDefaultSettings = async () => {
       description: "Contact email",
     },
     {
+      key: "contact_phone",
+      value: "",
+      type: "text",
+      description: "Contact phone number",
+    },
+    {
       key: "github_url",
       value: "https://github.com/abdulaki91",
       type: "text",
@@ -99,6 +105,55 @@ export const initializeDefaultSettings = async () => {
       value: "",
       type: "text",
       description: "LinkedIn profile URL",
+    },
+    {
+      key: "twitter_url",
+      value: "",
+      type: "text",
+      description: "Twitter profile URL",
+    },
+    {
+      key: "website_url",
+      value: "",
+      type: "text",
+      description: "Personal website URL",
+    },
+    {
+      key: "meta_keywords",
+      value: "full stack developer, react, node.js, web development",
+      type: "text",
+      description: "SEO keywords",
+    },
+    {
+      key: "meta_author",
+      value: "Abdulaki Mohammed",
+      type: "text",
+      description: "Meta author",
+    },
+    // File-related settings
+    {
+      key: "cv_file_path",
+      value: "/PDF/mycv.pdf",
+      type: "file",
+      description: "CV/Resume file path",
+    },
+    {
+      key: "profile_image_path",
+      value: "/profile.jpg",
+      type: "file",
+      description: "Profile image path",
+    },
+    {
+      key: "site_logo_path",
+      value: "/abdulhak.svg",
+      type: "file",
+      description: "Site logo/icon path",
+    },
+    {
+      key: "hero_background_path",
+      value: "",
+      type: "file",
+      description: "Hero section background image",
     },
   ];
 

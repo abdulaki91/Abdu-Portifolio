@@ -10,6 +10,10 @@ import AdminLayout from "./components/admin/AdminLayout";
 import DashboardPage from "./pages/admin/DashboardPage";
 import ProjectsPage from "./pages/admin/ProjectsPage";
 import ProjectFormPage from "./pages/admin/ProjectFormPage";
+import SkillsPage from "./pages/admin/SkillsPage";
+import ExperiencePage from "./pages/admin/ExperiencePage";
+import SettingsPage from "./pages/admin/SettingsPage";
+import MediaPage from "./pages/admin/MediaPage";
 
 // Protected Route Component
 function ProtectedRoute({ children }) {
@@ -54,6 +58,10 @@ export default function App() {
             <Route path="projects" element={<ProjectsPage />} />
             <Route path="projects/new" element={<ProjectFormPage />} />
             <Route path="projects/:id/edit" element={<ProjectFormPage />} />
+            <Route path="skills" element={<SkillsPage />} />
+            <Route path="experience" element={<ExperiencePage />} />
+            <Route path="settings" element={<SettingsPage />} />
+            <Route path="media" element={<MediaPage />} />
           </Route>
 
           {/* Redirect /admin to /admin/dashboard */}

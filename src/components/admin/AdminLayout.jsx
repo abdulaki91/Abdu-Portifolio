@@ -14,6 +14,7 @@ import {
   Bell,
   Search,
   Sparkles,
+  Upload,
 } from "lucide-react";
 
 export default function AdminLayout() {
@@ -51,6 +52,12 @@ export default function AdminLayout() {
       href: "/admin/experience",
       icon: Briefcase,
       color: "text-purple-500",
+    },
+    {
+      name: "Media",
+      href: "/admin/media",
+      icon: Upload,
+      color: "text-pink-500",
     },
     {
       name: "Settings",

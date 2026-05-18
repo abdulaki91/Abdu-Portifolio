@@ -1,8 +1,38 @@
 import { motion } from "framer-motion";
 import { Code2, Lightbulb, Rocket, Users } from "lucide-react";
+import { useState, useEffect } from "react";
+import { settingsAPI } from "../services/api";
 import AnimatedCounter from "./AnimatedCounter";
+import baseUrl from "../baseURL/baseUrl";
 
 const About = () => {
+  const [settings, setSettings] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  // Fallback data
+  const fallbackSettings = {
+    about_text:
+      "I'm a passionate software developer dedicated to crafting innovative and user-friendly digital solutions. With strong expertise in modern web and mobile technologies, I enjoy transforming complex ideas into efficient, real-world applications.",
+    profile_image_path: "/profile.jpg",
+  };
+
+  useEffect(() => {
+    fetchSettings();
+  }, []);
+
+  const fetchSettings = async () => {
+    try {
+      const response = await settingsAPI.getAll();
+      setSettings({ ...fallbackSettings, ...response.data.settings });
+    } catch (error) {
+      console.error("Error fetching settings:", error);
+      setSettings(fallbackSettings);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const highlights = [
     {
       icon: <Code2 size={24} />,
@@ -26,24 +56,42 @@ const About = () => {
     },
   ];
 
+  // Simplified animations
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.4, ease: "easeOut" },
+    },
+  };
+
   return (
-    <section
-      id="about"
-      className="section-padding bg-gray-50 dark:bg-slate-800"
-    >
-      <div className="max-w-6xl mx-auto">
+    <section id="about" className="py-20 bg-gray-900">
+      <div className="max-w-6xl mx-auto px-4">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-gradient">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
             About Me
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
             Passionate developer dedicated to creating impactful digital
             experiences
           </p>
@@ -53,23 +101,49 @@ const About = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
           {/* Image Side */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5 }}
             className="relative"
           >
             <div className="relative w-full max-w-md mx-auto">
-              {/* Decorative Elements */}
-              <div className="absolute -inset-4 bg-gradient-to-r from-primary to-secondary rounded-3xl blur-2xl opacity-20 animate-pulse"></div>
-
               {/* Image Container */}
-              <div className="relative glass rounded-3xl p-2 shadow-2xl">
-                <img
-                  src="/profile.jpg"
-                  alt="Abdulaki Mustefa - Software Developer"
-                  className="rounded-2xl w-full h-auto object-cover"
-                />
+              <div className="relative bg-gradient-to-r from-indigo-500 to-purple-600 rounded-3xl p-1 shadow-2xl">
+                {loading ? (
+                  <div className="w-full h-96 bg-gray-700 rounded-2xl animate-pulse"></div>
+                ) : (
+                  <>
+                    {/* Preload image */}
+                    <img
+                      src={
+                        settings.profile_image_path?.startsWith("/uploads")
+                          ? `${baseUrl}${settings.profile_image_path}`
+                          : settings.profile_image_path || "/profile.jpg"
+                      }
+                      alt=""
+                      className="hidden"
+                      onLoad={() => setImageLoaded(true)}
+                      onError={() => setImageLoaded(false)}
+                    />
+
+                    <img
+                      src={
+                        settings.profile_image_path?.startsWith("/uploads")
+                          ? `${baseUrl}${settings.profile_image_path}`
+                          : settings.profile_image_path || "/profile.jpg"
+                      }
+                      alt="Abdulaki Mustefa - Software Developer"
+                      className={`rounded-2xl w-full h-auto object-cover transition-opacity duration-500 ${
+                        imageLoaded ? "opacity-100" : "opacity-0"
+                      }`}
+                    />
+
+                    {!imageLoaded && (
+                      <div className="absolute inset-1 bg-gray-700 rounded-2xl animate-pulse"></div>
+                    )}
+                  </>
+                )}
               </div>
 
               {/* Floating Badge */}
@@ -88,49 +162,44 @@ const About = () => {
 
           {/* Text Side */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5 }}
             className="space-y-6"
           >
             <div>
-              <h3 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900 dark:text-white">
+              <h3 className="text-2xl md:text-3xl font-bold mb-4 text-white">
                 Building the Future, One Line at a Time
               </h3>
-              <p className="text-gray-700 dark:text-gray-200 leading-relaxed mb-4">
-                I'm a passionate software developer dedicated to crafting
-                innovative and user-friendly digital solutions. With strong
-                expertise in modern web and mobile technologies, I enjoy
-                transforming complex ideas into efficient, real-world
-                applications.
-              </p>
-              <p className="text-gray-700 dark:text-gray-200 leading-relaxed">
-                Currently serving as a Graduate Assistant II at Haramaya
-                University, I combine academic excellence with practical
-                development experience. I'm always eager to learn, grow, and
-                contribute to meaningful projects that make a difference in
-                people's lives.
-              </p>
+              <div className="text-gray-300 leading-relaxed space-y-4">
+                {loading ? (
+                  <div className="space-y-2">
+                    <div className="h-4 bg-gray-700 rounded animate-pulse"></div>
+                    <div className="h-4 bg-gray-700 rounded animate-pulse w-3/4"></div>
+                    <div className="h-4 bg-gray-700 rounded animate-pulse w-1/2"></div>
+                  </div>
+                ) : (
+                  <div className="whitespace-pre-line">
+                    {settings.about_text || fallbackSettings.about_text}
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Quick Stats */}
             <div className="grid grid-cols-2 gap-4 pt-4">
-              <div className="glass-card rounded-xl p-4 text-center">
-                <p className="text-3xl font-bold text-gradient-blue">
+              <div className="bg-gradient-to-r from-gray-800 to-gray-700 rounded-xl p-4 text-center border border-gray-600">
+                <p className="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
                   <AnimatedCounter end={15} suffix="+" />
                 </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Projects
-                </p>
+                <p className="text-sm text-gray-300">Projects</p>
               </div>
-              <div className="glass-card rounded-xl p-4 text-center">
-                <p className="text-3xl font-bold text-gradient">
+              <div className="bg-gradient-to-r from-gray-700 to-gray-800 rounded-xl p-4 text-center border border-gray-600">
+                <p className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
                   <AnimatedCounter end={10} suffix="+" />
                 </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Technologies
-                </p>
+                <p className="text-sm text-gray-300">Technologies</p>
               </div>
             </div>
           </motion.div>
@@ -138,31 +207,26 @@ const About = () => {
 
         {/* Highlights Grid */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
           className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
         >
           {highlights.map((item, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
+              variants={itemVariants}
               whileHover={{ y: -5 }}
-              className="glass-card rounded-2xl p-6 text-center hover:shadow-xl transition-all group"
+              className="bg-gray-800 rounded-2xl p-6 text-center hover:shadow-xl transition-all group border border-gray-700 shadow-sm"
             >
               <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 text-white mb-4 group-hover:scale-110 transition-transform shadow-lg">
                 {item.icon}
               </div>
-              <h4 className="font-bold text-lg mb-2 text-gray-900 dark:text-white">
+              <h4 className="font-bold text-lg mb-2 text-white">
                 {item.title}
               </h4>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
-                {item.description}
-              </p>
+              <p className="text-sm text-gray-300">{item.description}</p>
             </motion.div>
           ))}
         </motion.div>

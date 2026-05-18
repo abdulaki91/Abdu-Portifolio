@@ -137,15 +137,6 @@ export default function Footer() {
                 </a>
               </li>
               <li>Haramaya University</li>
-              <li>
-                <a
-                  href="/PDF/mycv.pdf"
-                  download="Abdulaki_Mustefa_CV"
-                  className="inline-flex items-center gap-2 text-indigo-600 dark:text-indigo-400 hover:underline"
-                >
-                  Download CV
-                </a>
-              </li>
             </ul>
           </div>
         </div>
